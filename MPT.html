@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barbie Love 💖</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Comic Sans MS", "Poppins", cursive;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ff9ad6, #ff4da6 60%, #ff1a8c);
+    }
+
+    .sparkle-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fff;
+      animation: sparkle 1.5s ease-out forwards;
+    }
+
+    @keyframes sparkle {
+      0% { transform: scale(0); opacity: 0; }
+      40% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 35px 25px;
+      width: 95%;
+      max-width: 520px;
+      border-radius: 35px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      animation: popIn 0.6s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      color: #ff1a8c;
+      margin-bottom: 10px;
+      font-size: 26px;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(255, 0, 140, 0.5);
+    }
+
+    p {
+      color: #555;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      height: 200px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 14px 30px;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 10px 20px rgba(255, 0, 140, 0.3);
+    }
+
+    button:active { transform: scale(0.95); }
+
+    #yes {
+      background: linear-gradient(135deg, #ff1a8c, #ff6aa3);
+      color: white;
+      border: 2px solid #fff;
+      text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+    }
+
+    #no {
+      background: linear-gradient(135deg, #ffd1dc, #ff9ad6);
+      color: #333;
+      position: absolute;
+      left: 50%;
+      top: 80px;
+      transform: translateX(-50%);
+      border: 2px solid #fff;
+    }
+
+    .hidden { display: none; }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-3px, 2px); }
+      50% { transform: translate(3px, -2px); }
+      75% { transform: translate(-2px, -3px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .shake { animation: shake 0.3s; }
+
+    .heart {
+      position: absolute;
+      font-size: 26px;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    #finalMessage {
+      font-size: 18px;
+      color: #ff1a8c;
+      margin-top: 12px;
+      font-weight: bold;
+      text-shadow: 0 2px 8px rgba(255, 0, 140, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sparkle-bg" id="sparkleBg"></div>
+
+  <div class="card" id="question">
+    <h1>Meri Pyaaari Gawaaaaar Tanuja ✨</h1>
+    <p>Can I keep holding your hand for the rest of my life?</p>
+
+    <div class="buttons">
+      <button id="yes">Yes 💕</button>
+      <button id="no">No 🙄</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="result">
+    <h1>Perf!! 💖</h1>
+    <p>
+      You said yes, and the world felt right, ✨<br>
+      Like stars leaned closer just to smile that night. 🌙⭐<br>
+      Us together is pure magic, dreamy yet true, 💫💞<br>
+      Every moment feels timeless, when I’m next to you ⏳💕<br>
+      In your eyes, I see my forever shine, 👀💖<br>
+      Best decision you made—choosing me, being mine. 💍😍
+    </p>
+
+    <div id="finalMessage">Tum idiot ho pr meri idiot ho, sirf aur sirf meri idiot 💖</div>
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="music" preload="auto"
+    src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_41aa8d9c2d.mp3?filename=beautiful-love-song-11569.mp3">
+  </audio>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const question = document.getElementById("question");
+    const result = document.getElementById("result");
+    const music = document.getElementById("music");
+
+    const noTexts = [
+      "Thappad Lagega 👋",
+      "Maar padegi 😡",
+      "Chal jhooti 😤"
+    ];
+
+    let speed = 300;
+    let sparkleInterval, heartInterval;
+
+    function moveNoButton() {
+      const container = document.querySelector(".buttons");
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      const x = Math.random() * (containerWidth - btnWidth);
+      const y = Math.random() * (containerHeight - btnHeight);
+
+      noBtn.style.transition = `all ${speed}ms ease`;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      noBtn.classList.remove("shake");
+      void noBtn.offsetWidth;
+      noBtn.classList.add("shake");
+
+      noBtn.textContent = noTexts[Math.floor(Math.random() * noTexts.length)];
+      if (speed > 80) speed -= 30;
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      question.classList.add("hidden");
+      result.classList.remove("hidden");
+
+      // Start continuous sparkle + hearts
+      sparkleInterval = setInterval(createSparkle, 150);
+      heartInterval = setInterval(createHeart, 250);
+
+      // play audio
+      music.currentTime = 0;
+      music.play();
+    });
+
+    function createSparkle() {
+      const sparkleBg = document.getElementById("sparkleBg");
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = Math.random() * window.innerWidth + "px";
+      sparkle.style.top = Math.random() * window.innerHeight + "px";
+      sparkleBg.appendChild(sparkle);
+
+      setTimeout(() => sparkle.remove(), 1600);
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.bottom = "0px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  </script>
+</body>
+</html>
